@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import {Content} from './Search';
-import {Content} from './Content';
 
 export class App extends React.Component {
   constructor(props) {
