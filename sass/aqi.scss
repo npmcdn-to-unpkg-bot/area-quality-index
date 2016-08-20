@@ -5,5 +5,22 @@
   height:50px;
 }
 
+.content {
+  text-align: center;
+}
+
+button, input {
+  border:1px solid #fefefe;
+  padding:10px;
+}
+
+input {
+  color:#000;
+}
+
+button {
+  background:darken(#2980b9,10);
+}
+
 .gradient {
 }
