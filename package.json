@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/mkaski/area-quality-index/issues"
   },
-  "homepage": "https://github.com/mkaski/area-quality-index#readme"
+  "homepage": "https://github.com/mkaski/area-quality-index#readme",
+  "dependencies": {
+    "koa": "^1.2.1",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0"
+  }
 }
