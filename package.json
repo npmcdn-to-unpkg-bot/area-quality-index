@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/mkaski/area-quality-index/issues"
   },
-  "homepage": "https://github.com/mkaski/area-quality-index#readme"
+  "homepage": "https://github.com/mkaski/area-quality-index#readme",
+  "dependencies": {
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1"
+  }
 }
