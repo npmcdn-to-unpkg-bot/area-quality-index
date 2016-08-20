@@ -17,15 +17,12 @@
   },
   "homepage": "https://github.com/mkaski/area-quality-index#readme",
   "dependencies": {
-<<<<<<< HEAD
     "body-parser": "~1.15.2",
-=======
     "gulp-nodemon": "^2.1.0",
     "gulp-sass": "^2.3.2",
     "koa": "^1.2.1",
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",
->>>>>>> 09a993850e04d5b4f9aef7de396b14315add05f1
     "bootstrap-sass": "^3.3.7",
     "express": "~4.14.0",
     "koa": "^1.2.1",
