@@ -28,6 +28,7 @@
     "babel-preset-react": "^6.11.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-browserify": "^0.5.1",
     "koa-static": "^2.0.0",
     "nodemon": "~1.10.2"
   }
