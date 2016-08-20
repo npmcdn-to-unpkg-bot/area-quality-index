@@ -23,6 +23,7 @@ var router = express.Router();
 router.get('/api/area_data/:code', function(req, res) {
     console.log(req.params.code);
     let zipcode = req.params.code;
+
     // Basic data for the query
     let requestData = {
         "query": [{
@@ -49,19 +50,38 @@ router.get('/api/area_data/:code', function(req, res) {
             console.log("no data, error", error);
             res.json('no data', error);
         }
-        res.json(response);
-    });
-    let indexes = response.body.dataset.dimension.Tiedot.category.index;
-    let data = response.body.dataset.value;
-    let toClient = {
-        'household-avg-size': data[indexes['Te_takk']],
-        'median-income': data[indexes['Tr_mtu']],
-        'house-owners': data[indexes['Te_omis_as']],
-        'renters': data[indexes['Te_vuok_as']],
-        'average-age': data[indexes['He_kika']],
-        'jobless': (data[indexes['Pt_tyott']] / data[indexes['Pt_tyovy']]),
-    }
-    res.json(toClient);
+
+	    let indexes = response.body.dataset.dimension.Tiedot.category.index;
+	    let data = response.body.dataset.value;
+	    let toClient = {
+	    	'status': 1,
+	    	'zip': zipcode,
+	        'household-avg-size': data[indexes['Te_takk']],
+	        'median-income': data[indexes['Tr_mtu']],
+	        'house-owners': data[indexes['Te_omis_as']],
+	        'renters': data[indexes['Te_vuok_as']],
+	        'average-age': data[indexes['He_kika']],
+	        'jobless': (data[indexes['Pt_tyott']] / data[indexes['Pt_tyovy']]),
+	    }
+
+	    geocoder.geocode(zipcode)
+        .then(function(promiseRes) {
+            if (promiseRes.length > 0) {
+            	toClient.lat = promiseRes[0].latitude; 
+            	toClient.lon = promiseRes[0].longitude; 
+            	res.json(toClient);
+
+            } else {
+            	toClient.status = -1;
+            	res.json(toClient);
+
+            }
+        })
+        .catch(function(err) {
+        	toClient.status = -1;
+        	res.json(toClient);
+        });
+	});
 });
 
 router.get('/api/area/:searchword', function(req, res) {
