@@ -14,6 +14,6 @@ router.get('/api/area/:code',
 let app = koa();
 
 app.use(router.routes());
-app.use(serve(__dirname + '/public'));
+app.use(serve(__dirname + '/'));
 app.listen(3000);
 console.log('server running on port 3000');
