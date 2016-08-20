@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export class App extends React.Component {
   constructor(props) {
@@ -6,7 +7,11 @@ export class App extends React.Component {
   }
   render() {
     return (
-      <div>This one is alive! So hello there world!</div>
+      <div className="content">
+        <p>This one is alive! So hello there world!!!Fobar11</p>
+      </div>
     )
   }
 }
+
+ReactDOM.render(<App />, document.getElementById('app'));
