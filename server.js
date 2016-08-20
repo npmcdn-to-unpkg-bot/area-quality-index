@@ -45,7 +45,17 @@ router.get('/api/area/:code', function(req, res) {
 	        		console.log("no data, error", error);
 	        		res.json('no data', error);
 	        	}
-	        	res.json(response);
+	        	let indexes = response.body.dataset.dimension.Tiedot.category.index; 
+	        	let data = response.body.dataset.value;
+	        	let toClient = {
+	        		'household-avg-size': data[indexes['Te_takk']],
+	        		'median-income': data[indexes['Tr_mtu']],
+	        		'house-owners': data[indexes['Te_omis_as']],
+	        		'renters': data[indexes['Te_vuok_as']],
+	        		'average-age': data[indexes['He_kika']],
+	        		'jobless': (data[indexes['Pt_tyott']]/data[indexes['Pt_tyovy']]),
+	        	}
+	        	res.json(toClient);
 	        }); 
 });
 
