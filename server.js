@@ -1,5 +1,4 @@
 'use strict';
-
 let express    = require('express');        
 let app        = express();                 
 let bodyParser = require('body-parser');; 
@@ -53,18 +52,6 @@ router.get('/api/area/:code', function(req, res) {
 router.get('/test', function(req, res) {
 	res.json({test: 'test'});
 });
-
-// router.get('/api/area/:code',
-//     function *(next) {
-//         console.log(this.params.code);
-//         var zipcode = this.params.code;
-//         // this.body = 'hello world';
-
-//         let data =  yield getData(zipcode);
-//         console.log("data should be here", data);
-//         this.body = "test: " + data; 
-//     }
-// );
 
 
 app.use('/', router);
