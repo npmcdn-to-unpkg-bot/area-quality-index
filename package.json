@@ -18,6 +18,9 @@
   "homepage": "https://github.com/mkaski/area-quality-index#readme",
   "dependencies": {
     "react": "^15.3.1",
-    "react-dom": "^15.3.1"
+    "react-dom": "^15.3.1",
+    "koa": "^1.2.1",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0"
   }
 }
