@@ -63,38 +63,19 @@ router.get('/api/area_data/:code', function(req, res) {
 	        'average-age': data[indexes['He_kika']],
 	        'jobless': (data[indexes['Pt_tyott']] / data[indexes['Pt_tyovy']]),
 	    }
-
-	    // geocoder.geocode(zipcode + ', Finland')
-     //    .then(function(promiseRes) {
-     //        if (promiseRes.length > 0) {
-     //        	toClient.lat = promiseRes[0].latitude; 
-     //        	toClient.lon = promiseRes[0].longitude; 
-     //        	res.json(toClient);
-
-     //        } else {
-     //        	toClient.status = -1;
-     //        	res.json(toClient);
-
-     //        }
-     //    })
-     //    .catch(function(err) {
-     //    	toClient.status = -1;
-     //    	res.json(toClient);
-     //    });
+	    
         res.json(toClient);
 	});
 });
 
 router.get('/api/area/:searchword', function(req, res) {
     console.log(req.params.searchword);
-    let address = req.params.searchword;
-
     geocoder.geocode(req.params.searchword + ', Finland')
         .then(function(promiseRes) {
             if (promiseRes.length > 0 && promiseRes[0].zipcode) {
                 res.json(promiseRes);
             }
-            if (promiseRes[0].zipcode) {
+            else if (!promiseRes[0].zipcode) {
                 res.json('-2');
             } else {
                 res.json('-1');
@@ -105,7 +86,31 @@ router.get('/api/area/:searchword', function(req, res) {
         });
 });
 
+router.get('/api/area_with_area_data/:searchword', function(req, res) {
+    console.log(req.params.searchword);
 
+    request(req.protocol + '://' + req.header('host') + '/api/area/' + req.params.searchword, (error, response, body) => {
+      if (!error && response.statusCode == 200) {
+        let firstItem = JSON.parse(body)[0];
+        console.log(firstItem);
+        request(req.protocol + '://' + req.header('host') + '/api/area_data/' + firstItem.zipcode, (error, response, body) => {
+          if (!error && response.statusCode == 200) {
+            console.log("JEEEEE" + body);
+            firstItem.area_data = JSON.parse(body);
+            res.json(firstItem);
+          }
+          else {
+            console.log("no data, error", error);
+            res.json('no data', error);
+          }
+        });
+      }
+      else {
+        console.log("no data, error", error);
+        res.json('no data', error);
+      }
+    });
+});
 
 app.use('/', router);
 app.use(express.static(__dirname + '/'));
