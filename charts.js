@@ -1,4 +1,4 @@
-let searchword = "20500";
+let searchword = "21100";
 $.ajax({
 	url: '/api/area_data/' + searchword,
 	type: 'GET',
@@ -27,3 +27,14 @@ function handleCharts(data) {
 	// $('.charts div').css({'display': 'inline-block', 'padding': '20px', 'text-align': 'center'});
 	$('.charts .title').css({'display': 'block'});
 }
+
+$(document).ready(function() {
+	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+	// add attr OpenStreetMap tile layer
+	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+	    maxZoom: 19
+	}).addTo(mymap);
+})
+
+
