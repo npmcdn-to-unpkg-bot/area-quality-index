@@ -1,0 +1,19 @@
+{
+  "name": "area-quality-index",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkaski/area-quality-index.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkaski/area-quality-index/issues"
+  },
+  "homepage": "https://github.com/mkaski/area-quality-index#readme"
+}
