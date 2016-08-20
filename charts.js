@@ -28,6 +28,15 @@ function handleCharts(data) {
 	$('.charts .title').css({'display': 'block'});
 }
 
+$('zip').submit(function(e) {
+	e.preventDefault(); 
+
+	console.log($('.zipcode').value(), $('.zipcode').val());
+	return false;
+});
+
+// mapzen 
+
 $(document).ready(function() {
 	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 	// add attr OpenStreetMap tile layer
@@ -35,6 +44,6 @@ $(document).ready(function() {
 	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 	    maxZoom: 19
 	}).addTo(mymap);
-})
+}); 
 
 
