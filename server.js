@@ -1,9 +1,13 @@
 'use strict';
-let express    = require('express');        
-let app        = express();                 
-let bodyParser = require('body-parser');; 
+let express    = require('express');
+let app        = express();
+let bodyParser = require('body-parser');;
 
-let request		= require('request'); 
+let request		= require('request');
+
+var geocoder = require('node-geocoder')({
+  provider: 'google'
+});
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -12,28 +16,26 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;        // set our port
 
-var router = express.Router();   
+var router = express.Router();
 
 router.get('/api/area/:code', function(req, res) {
 	console.log(req.params.code);
 	let zipcode = req.params.code;
 		// Basic data for the query
 	    let requestData = {
-				  "query": [
-				    {
-				      "code": "Postinumeroalue",
-				      "selection": {
-				        "filter": "item",
-				        "values": [
-				          zipcode
-				        ]
-				      }
-				    }
-				  ],
-				  "response": {
-				    "format": "json-stat"
-					}
-		}; 
+        "query": [{
+            "code": "Postinumeroalue",
+            "selection": {
+                "filter": "item",
+                "values": [
+                    zipcode
+                ]
+            }
+        }],
+        "response": {
+            "format": "json-stat"
+        }
+    };
 		request({
 	    	url: 'http://pxnet2.stat.fi/PXWeb/api/v1/fi/Postinumeroalueittainen_avoin_tieto/2016/paavo_9_koko_2016.px',
 	    	method: 'POST',
@@ -46,12 +48,26 @@ router.get('/api/area/:code', function(req, res) {
 	        		res.json('no data', error);
 	        	}
 	        	res.json(response);
-	        }); 
+	        });
 });
 
-router.get('/test', function(req, res) {
-	res.json({test: 'test'});
+router.get('/api/zip/:address', function(req, res) {
+    console.log(req.params.address);
+    let address = req.params.address;
+
+    geocoder.geocode(req.params.address)
+        .then(function(promiseRes) {
+						if (promiseRes.length > 0) {
+            	res.json(promiseRes[0].zipcode);
+						} else {
+							res.json("-1");
+						}
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
 });
+
 
 
 app.use('/', router);
