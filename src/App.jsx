@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import {Content} from './Search';
 
 export class App extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ export class App extends React.Component {
     return (
       <div className="content">
         <h1>The Area Indexer</h1>
+        <Content callback={this.updateSelectedAreaInfo} />
         <ResultArea data={this.state.areaData}/>
       </div>
     )
