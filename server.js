@@ -64,23 +64,24 @@ router.get('/api/area_data/:code', function(req, res) {
 	        'jobless': (data[indexes['Pt_tyott']] / data[indexes['Pt_tyovy']]),
 	    }
 
-	    geocoder.geocode(zipcode)
-        .then(function(promiseRes) {
-            if (promiseRes.length > 0) {
-            	toClient.lat = promiseRes[0].latitude; 
-            	toClient.lon = promiseRes[0].longitude; 
-            	res.json(toClient);
+	    // geocoder.geocode(zipcode + ', Finland')
+     //    .then(function(promiseRes) {
+     //        if (promiseRes.length > 0) {
+     //        	toClient.lat = promiseRes[0].latitude; 
+     //        	toClient.lon = promiseRes[0].longitude; 
+     //        	res.json(toClient);
 
-            } else {
-            	toClient.status = -1;
-            	res.json(toClient);
+     //        } else {
+     //        	toClient.status = -1;
+     //        	res.json(toClient);
 
-            }
-        })
-        .catch(function(err) {
-        	toClient.status = -1;
-        	res.json(toClient);
-        });
+     //        }
+     //    })
+     //    .catch(function(err) {
+     //    	toClient.status = -1;
+     //    	res.json(toClient);
+     //    });
+        res.json(toClient);
 	});
 });
 
