@@ -20,7 +20,7 @@ var port = process.env.PORT || 3000; // set our port
 
 var router = express.Router();
 
-router.get('/api/area/:code', function(req, res) {
+router.get('/api/area_data/:code', function(req, res) {
     console.log(req.params.code);
     let zipcode = req.params.code;
     // Basic data for the query
@@ -64,16 +64,19 @@ router.get('/api/area/:code', function(req, res) {
     res.json(toClient);
 });
 
-router.get('/api/zip/:address', function(req, res) {
-    console.log(req.params.address);
-    let address = req.params.address;
+router.get('/api/area/:searchword', function(req, res) {
+    console.log(req.params.searchword);
+    let address = req.params.searchword;
 
-    geocoder.geocode(req.params.address)
+    geocoder.geocode(req.params.searchword + ', Finland')
         .then(function(promiseRes) {
-            if (promiseRes.length > 0) {
-                res.json(promiseRes[0].zipcode);
+            if (promiseRes.length > 0 && promiseRes[0].zipcode) {
+                res.json(promiseRes);
+            }
+            if (promiseRes[0].zipcode) {
+                res.json('-2');
             } else {
-                res.json("-1");
+                res.json('-1');
             }
         })
         .catch(function(err) {
