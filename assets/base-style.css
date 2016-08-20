@@ -25,3 +25,9 @@ body {
 .charts .data {
 	font-size: 3em;
 }
+
+#mapid { 
+	min-height: 180px; 
+	height: 50vh;
+	width: 100%;
+}
